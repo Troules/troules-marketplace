@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-02-07 - v1.2.2: Skill Documentation Updates
+
+### 📝 SKILL.md Enhancements
+- **Results Saving Instructions**: Added clear guidance for saving journey results to `results/` folder
+  - Filename format and examples
+  - Privacy note (gitignored folder)
+  - Metadata and formatting guidelines
+- **Updated Examples**: Replaced specific routes with generic Paris-Marseille examples
+- **Station IDs**: Updated reference stations to use more widely-known cities
+
+---
+
 ## 2026-02-07 - v1.2.1: Documentation Corrections
 
 ### 📝 Documentation Fixes

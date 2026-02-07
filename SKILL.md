@@ -112,6 +112,15 @@ When users request train information:
    - Include delays or disruptions if present in the response
    - Remove city names from station labels for cleaner display (e.g., "Lyon Part Dieu (Lyon)" → "Lyon Part Dieu")
 
+7. **Save results for later reference** (when users request journey planning):
+   - Save journey results to `results/` folder with timestamp
+   - **Filename format**: `results/YYYY-MM-DD_HHMM_origin-destination.txt`
+   - **Example**: `results/2026-02-08_1430_Paris-Marseille.txt`
+   - Include formatted journey details (times, transfers, CO2, train info)
+   - Add metadata footer (search date/time, query details)
+   - The `results/` folder is gitignored - search history stays private
+   - Users can review past searches with `ls results/` or `cat results/filename.txt`
+
 ## Examples
 
 ### Example 1: Next departures from Paris Gare de Lyon
@@ -144,8 +153,8 @@ curl -H "Authorization: $NAVITIA_API_TOKEN" "https://api.navitia.io/v1/coverage/
 TOKEN="$NAVITIA_API_TOKEN"
 
 # Step 1: Search for stations and save results
-curl -H "Authorization: $TOKEN" "https://api.navitia.io/v1/coverage/sncf/places?q=lyon%20part%20dieu" > /tmp/origin.json
-curl -H "Authorization: $TOKEN" "https://api.navitia.io/v1/coverage/sncf/places?q=saint%20etienne" > /tmp/dest.json
+curl -H "Authorization: $TOKEN" "https://api.navitia.io/v1/coverage/sncf/places?q=paris%20gare%20de%20lyon" > /tmp/origin.json
+curl -H "Authorization: $TOKEN" "https://api.navitia.io/v1/coverage/sncf/places?q=marseille" > /tmp/dest.json
 
 # Step 2: Extract station IDs
 ORIGIN_ID=$(python3 -c "import json; print([p['id'] for p in json.load(open('/tmp/origin.json'))['places'] if p.get('embedded_type')=='stop_area'][0])")
@@ -243,7 +252,7 @@ for journey in data.get('journeys', []):
 
 ### Other Major Cities
 - **Marseille Saint-Charles**: `stop_area:SNCF:87751008`
-- **Saint-Étienne Châteaucreux**: `stop_area:SNCF:87726000`
+- **Bordeaux Saint-Jean**: `stop_area:SNCF:87581009`
 
 (Use `/places` search to find other stations - most station searches work well with city name + "gare" or main station name)
 
