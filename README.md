@@ -18,7 +18,7 @@ This skill enables Claude to help users:
 1. Clone or copy this repository to your Claude skills directory:
    ```bash
    cd ~/.claude/skills/
-   git clone <repository-url> sncf-train-schedule
+   git clone https://github.com/Troules/sncf-train-schedule sncf-train-schedule
    ```
 
 2. The skill will be automatically available in Claude Code
@@ -32,7 +32,7 @@ This skill enables Claude to help users:
 
 ### Get an API Token
 
-1. Visit https://www.navitia.io/
+1. Visit https://numerique.sncf.com/ressources/api/
 2. Register for a free account
 3. Get your API token (becomes active within 5 minutes)
 4. Set it as an environment variable:

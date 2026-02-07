@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-02-07 - v1.2.1: Documentation Corrections
+
+### 📝 Documentation Fixes
+- **README.md Updates**:
+  - Fixed repository URL: `https://github.com/Troules/sncf-train-schedule`
+  - Corrected API token source: `https://numerique.sncf.com/ressources/api/` (was incorrectly pointing to navitia.io)
+
+---
+
 ## 2026-02-07 - v1.2.0: Search Results & Privacy Updates
 
 ### 🆕 New Features
