@@ -1,6 +1,6 @@
-# Contributing to SNCF Train Schedule Skill
+# Contributing to SNCF Train Schedule Plugin
 
-Thank you for your interest in contributing to this Claude skill! This document provides guidelines for contributing.
+Thank you for your interest in contributing to this Claude Code plugin! This document provides guidelines for contributing.
 
 ## How to Contribute
 
@@ -55,37 +55,40 @@ If you find a bug or have a suggestion:
 
 ## Development Guidelines
 
-### SKILL.md Structure
+### Plugin Structure
 
-The `SKILL.md` file should follow this structure:
+The plugin follows this directory layout:
 
-1. **YAML Frontmatter**: Name and description
-2. **Overview**: What the skill does
-3. **API Configuration**: Endpoints and authentication
-4. **Instructions**: Step-by-step guide for Claude
-5. **Examples**: Practical usage examples
-6. **Guidelines**: Best practices and constraints
+- **`.claude-plugin/plugin.json`**: Plugin manifest (name, description, author)
+- **`skills/sncf-train-schedule/SKILL.md`**: Core skill instructions (keep under 2,000 words)
+- **`skills/sncf-train-schedule/references/`**: Detailed API documentation
+- **`skills/sncf-train-schedule/examples/`**: Usage examples
+- **`skills/sncf-train-schedule/scripts/`**: Helper scripts
+- **`hooks/`**: Event hooks (token validation, security checks)
+- **`tests/`**: Test scripts
 
 ### Testing Your Changes
 
 Before submitting:
 
-1. Test the skill with Claude Code:
+1. Run structure tests (no token needed):
    ```bash
-   # Copy to your skills directory
-   cp -r . ~/.claude/skills/sncf-train-schedule/
-
-   # Test various scenarios
-   claude "Show me trains from Paris to Lyon"
+   bash tests/test-plugin-structure.sh
    ```
 
-2. Verify API calls work correctly:
+2. Run API tests (requires token):
    ```bash
-   # Test with curl
-   curl -u $NAVITIA_API_TOKEN: "https://api.navitia.io/v1/coverage"
+   export NAVITIA_API_TOKEN='your-token'
+   bash tests/test-api-integration.sh
    ```
 
-3. Check that documentation is clear and accurate
+3. Test the plugin with Claude Code:
+   ```bash
+   claude --plugin-dir .
+   # Then ask: "Show me trains from Paris to Lyon"
+   ```
+
+4. Check that documentation is clear and accurate
 
 ### Documentation Standards
 
@@ -105,34 +108,27 @@ Before submitting:
 
 ## Areas for Contribution
 
-We welcome contributions in these areas:
-
 ### Features
 - [ ] Add support for more journey filters (wheelchair access, bike transport)
 - [ ] Implement fare information retrieval
 - [ ] Add multi-language support
 - [ ] Create journey comparison tool
 - [ ] Add disruption notifications
-- [ ] Implement station facilities lookup
 
 ### Documentation
 - [ ] Add more usage examples
-- [ ] Create video tutorials
 - [ ] Translate documentation to French
-- [ ] Add troubleshooting guide
-- [ ] Create API response reference
+- [ ] Expand troubleshooting guide
 
 ### Improvements
 - [ ] Optimize API call efficiency
 - [ ] Improve error handling
-- [ ] Add response caching
 - [ ] Better datetime parsing
 - [ ] Enhance output formatting
 
 ### Testing
-- [ ] Add integration tests
+- [ ] Add more integration tests
 - [ ] Create test fixtures
-- [ ] Add CI/CD pipeline
 - [ ] Create mock API for testing
 
 ## API Guidelines
@@ -140,14 +136,13 @@ We welcome contributions in these areas:
 When working with the Navitia API:
 
 - **Respect rate limits**: Don't make excessive requests
-- **Use caching**: Cache responses when appropriate
 - **Handle errors**: Always check for and handle API errors
 - **Real-time data**: Prefer `data_freshness=realtime` for current info
 - **Privacy**: Never log or expose API tokens
 
 ## Pull Request Review Process
 
-1. **Automated checks**: PRs must pass any automated tests
+1. **Automated checks**: PRs must pass CI tests
 2. **Code review**: At least one maintainer will review your code
 3. **Testing**: Changes will be tested in a real environment
 4. **Documentation**: Ensure all docs are updated
@@ -159,7 +154,6 @@ When working with the Navitia API:
 - Help others learn and grow
 - Give credit where credit is due
 - Focus on what is best for the community
-- Show empathy and kindness
 
 ## Questions?
 
@@ -167,18 +161,8 @@ If you have questions about contributing:
 
 - Open an issue for discussion
 - Check existing documentation
-- Review the Navitia API docs
-- Look at previous PRs for examples
+- Review the Navitia API docs at https://doc.navitia.io/
 
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
-
-## Recognition
-
-Contributors will be:
-- Listed in the CONTRIBUTORS file
-- Mentioned in release notes
-- Credited in the README
-
-Thank you for making this skill better! 🚆

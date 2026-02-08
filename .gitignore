@@ -24,6 +24,12 @@ Thumbs.db
 *.swo
 *~
 
+# Plugin local overrides
+.claude-plugin/*.local.json
+
+# Hook logs
+hooks/*.log
+
 # Logs
 *.log
 logs/
