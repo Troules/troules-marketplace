@@ -18,7 +18,6 @@ jobs:
   api-tests:
     name: API Integration
     runs-on: ubuntu-latest
-    if: secrets.NAVITIA_API_TOKEN != ''
     steps:
       - uses: actions/checkout@v4
       - name: Run API tests
