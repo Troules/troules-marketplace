@@ -15,7 +15,7 @@ Or add to your Claude Code settings to load automatically.
 
 ## Prerequisites
 
-1. **API Token**: Register at https://www.navitia.io/ for a free token
+1. **API Token**: Register at https://numerique.sncf.com/startup/api/token-developpeur/ for a free token
 2. Set the token as an environment variable:
    ```bash
    export NAVITIA_API_TOKEN="your-token-here"
@@ -116,3 +116,10 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 - [Navitia API Documentation](https://doc.navitia.io/)
 - [SNCF Open Data](https://numerique.sncf.com/ressources/api/)
+
+## Support
+
+For issues or questions:
+- Get API token: https://numerique.sncf.com/startup/api/token-developpeur/
+- API documentation: https://doc.navitia.io/
+- Plugin issues: Open an issue in this repository

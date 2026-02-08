@@ -14,7 +14,7 @@ Check train schedules, departures, arrivals, and plan journeys using the SNCF/Na
 
 - **Base URL**: `https://api.navitia.io/v1/`
 - **Auth**: Header-based — `curl -H "Authorization: $NAVITIA_API_TOKEN" "URL"`
-- **Token**: Read from env `NAVITIA_API_TOKEN` or `.env` file. Register at https://www.navitia.io/
+- **Token**: Read from env `NAVITIA_API_TOKEN` or `.env` file. Register at https://numerique.sncf.com/startup/api/token-developpeur/
 - **Default Region**: `sncf` (covers all SNCF trains across France)
 
 ## Core Endpoints
@@ -41,7 +41,7 @@ Check train schedules, departures, arrivals, and plan journeys using the SNCF/Na
 
 When users request train information:
 
-1. **Get API token**: Check `NAVITIA_API_TOKEN` env var or source `.env`. If missing, direct users to https://www.navitia.io/ for a free token.
+1. **Get API token**: Check `NAVITIA_API_TOKEN` env var or source `.env`. If missing, direct users to https://numerique.sncf.com/startup/api/token-developpeur/ for a free token.
 
 2. **Identify region**: Default to `sncf` for SNCF trains. Use `/coverage` to list available regions.
 

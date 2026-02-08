@@ -158,7 +158,7 @@ curl -H "Authorization: $NAVITIA_API_TOKEN" "https://api.navitia.io/v1/coverage/
 ### "permission denied" or 403 Error
 **Solutions**:
 1. Try `sncf` region instead of `fr-idf` or other regional codes
-2. Check token permissions at https://www.navitia.io/
+2. Check token permissions at https://numerique.sncf.com/startup/api/token-developpeur/
 3. Verify endpoint URL is correct (check for typos in region or stop_area IDs)
 
 ### Empty or Unexpected JSON Response
@@ -185,5 +185,5 @@ curl -H "Authorization: $NAVITIA_API_TOKEN" "https://api.navitia.io/v1/coverage/
 ## Additional Resources
 
 - [Navitia API Documentation](https://doc.navitia.io/)
-- [Register for API token](https://www.navitia.io/)
+- [Register for API token](https://numerique.sncf.com/startup/api/token-developpeur/)
 - [Coverage regions](https://api.navitia.io/v1/coverage)
