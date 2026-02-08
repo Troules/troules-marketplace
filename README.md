@@ -32,7 +32,7 @@ This skill enables Claude to help users:
 
 ### Get an API Token
 
-1. Visit https://numerique.sncf.com/ressources/api/
+1. Visit https://numerique.sncf.com/startup/api/token-developpeur/
 2. Register for a free account
 3. Get your API token (becomes active within 5 minutes)
 4. Set it as an environment variable:
@@ -160,5 +160,6 @@ MIT License - see LICENSE file for details
 ## Support
 
 For issues or questions:
-- API issues: https://www.navitia.io/
+- Get API token: https://numerique.sncf.com/startup/api/token-developpeur/
+- API documentation: https://doc.navitia.io/
 - Skill issues: Open an issue in this repository

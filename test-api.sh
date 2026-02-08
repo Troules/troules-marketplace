@@ -23,7 +23,7 @@ if [ -z "$NAVITIA_API_TOKEN" ]; then
     echo "Please set your API token:"
     echo "  export NAVITIA_API_TOKEN='your-token-here'"
     echo ""
-    echo "Get your token at: https://www.navitia.io/"
+    echo "Get your token at: https://numerique.sncf.com/startup/api/token-developpeur/"
     exit 1
 fi
 

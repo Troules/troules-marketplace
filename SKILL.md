@@ -14,7 +14,7 @@ This skill helps you check train schedules, departures, arrivals, and plan journ
   - **Preferred method**: `curl -H "Authorization: $TOKEN" "https://api.navitia.io/v1/..."`
   - ⚠️ Basic Auth (`-u $TOKEN:`) can be unreliable - use header format instead
   - ⚠️ URL-embedded tokens (`https://$TOKEN@api...`) may not work with WebFetch tool
-- **API Token**: Required (users need to register at https://www.navitia.io/)
+- **API Token**: Required (users need to register at https://numerique.sncf.com/startup/api/token-developpeur/)
   - Read from environment variable `NAVITIA_API_TOKEN` or `.env` file
   - Free tier available with reasonable rate limits
 - **Default Region**: Use `sncf` as the default coverage region
@@ -73,7 +73,7 @@ List available coverage regions (e.g., "fr-idf" for Île-de-France).
 When users request train information:
 
 1. **Ask for API token** if not provided:
-   - Users need to register at https://www.navitia.io/ to get a free API token
+   - Users need to register at https://numerique.sncf.com/startup/api/token-developpeur/ to get a free API token
    - Store it securely (suggest using environment variable `NAVITIA_API_TOKEN`)
 
 2. **Identify the region**:
@@ -286,7 +286,7 @@ curl -H "Authorization: $NAVITIA_API_TOKEN" "https://api.navitia.io/v1/coverage/
 
 **Solutions**:
 1. Try using `sncf` region instead of `fr-idf` or other regional codes
-2. Check your token has the necessary permissions at https://www.navitia.io/
+2. Check your token has the necessary permissions at https://numerique.sncf.com/startup/api/token-developpeur/
 3. Verify the endpoint URL is correct (check for typos in region or stop_area IDs)
 
 ### Empty or Unexpected JSON Response
@@ -319,5 +319,5 @@ curl -H "Authorization: $NAVITIA_API_TOKEN" "https://api.navitia.io/v1/coverage/
 ## Additional Resources
 
 - API Documentation: https://doc.navitia.io/
-- Register for API token: https://www.navitia.io/
+- Register for API token: https://numerique.sncf.com/startup/api/token-developpeur/
 - Coverage regions: https://api.navitia.io/v1/coverage
