@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-02-08 - v2.0.0: Plugin Migration
+
+### Breaking Changes
+- Restructured from flat skill to Claude Code plugin format
+- Moved `SKILL.md` to `skills/sncf-train-schedule/SKILL.md`
+- Moved `examples.md` to `skills/sncf-train-schedule/examples/usage-examples.md`
+- Moved `save-journey.sh` to `skills/sncf-train-schedule/scripts/save-journey.sh`
+- Moved `test-api.sh` to `skills/sncf-train-schedule/scripts/test-api.sh`
+
+### New
+- `.claude-plugin/plugin.json` — plugin manifest for marketplace
+- `hooks/hooks.json` — hook manifest with SessionStart and PreToolUse hooks
+- `hooks/check-token.sh` — validates API token on session start
+- `hooks/validate-bash-security.sh` — warns on hardcoded tokens in commands
+- `skills/sncf-train-schedule/references/api-reference.md` — extracted detailed API docs
+- `tests/test-plugin-structure.sh` — structure validation tests (no token needed)
+- `tests/test-api-integration.sh` — API integration tests
+- `.github/workflows/test.yml` — CI pipeline
+
+### Changed
+- Compressed SKILL.md from ~2,800 to ~470 words with progressive disclosure
+- Rewritten README.md for plugin installation
+- Updated CONTRIBUTING.md for plugin conventions
+
+---
+
 ## 2026-02-07 - v1.2.2: Skill Documentation Updates
 
 ### 📝 SKILL.md Enhancements
