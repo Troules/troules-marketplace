@@ -1,0 +1,7 @@
+{
+  "name": "sncf-train-schedule",
+  "description": "Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API",
+  "author": {
+    "name": "Troules"
+  }
+}
