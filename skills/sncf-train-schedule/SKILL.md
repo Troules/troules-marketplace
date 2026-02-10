@@ -156,32 +156,45 @@ python scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:8772202
 
 **Feedback loop**: If validation fails at any step, return to the search step and try different search terms.
 
+## ⚠️ MANDATORY: Response Formatting
+
+**ALWAYS read `references/response-template.md` BEFORE presenting any train results.**
+
+Every response with train data (journeys, departures, arrivals) **MUST** use the mobile template:
+- Target width: **30 characters**
+- Use station abbreviations from the template (e.g. `Paris GdL`, `Lyon PDieu`)
+- Use French 3-letter day abbreviations (`Lun`, `Mar`, `Mer`, `Jeu`, `Ven`, `Sam`, `Dim`)
+- Use `══` borders for header/footer and `──` separators between results
+
+**This is not optional.** Do not use tables, bullet lists, or prose to present train results.
+
 ## Instructions
 
 When users request train information:
 
-1. **Get API token**: Check `NAVITIA_API_TOKEN` env var or source `.env`. If missing, direct users to https://numerique.sncf.com/startup/api/token-developpeur/ for a free token.
+1. **Read the response template**: Open `references/response-template.md` first. You will need it in step 6.
 
-2. **Identify region**: Default to `sncf` for SNCF trains. Use `/coverage` to list available regions.
+2. **Get API token**: Check `NAVITIA_API_TOKEN` env var or source `.env`. If missing, direct users to https://numerique.sncf.com/startup/api/token-developpeur/ for a free token.
 
-3. **Search locations**: Use `/places` to find station IDs. Show top results for user confirmation.
+3. **Identify region**: Default to `sncf` for SNCF trains. Use `/coverage` to list available regions.
 
-4. **Format datetime**: Convert natural language to `YYYYMMDDTHHmmss`. Use current time if not specified.
+4. **Search locations**: Use `/places` to find station IDs. Show top results for user confirmation.
 
-5. **Make API requests**:
+5. **Format datetime**: Convert natural language to `YYYYMMDDTHHmmss`. Use current time if not specified.
+
+6. **Make API requests**:
    - **Always use header auth**: `curl -H "Authorization: $NAVITIA_API_TOKEN" "URL"`
    - Save JSON to files before parsing (avoid piping issues)
    - On "no token" error → check auth format; on 403 → try `sncf` region; on empty response → broaden search terms
 
-6. **Present results clearly**:
+7. **Present results using the mobile template** (from `references/response-template.md`):
    - Parse time: `YYYYMMDDTHHmmss` → extract positions 9–10 (HH) and 11–12 (MM)
-   - Journeys: show departure/arrival times, duration, transfers, CO2
+   - Journeys: show departure/arrival times, duration, transfers
    - Departures/arrivals: show time, line, direction, platform, real-time status
-   - Use the mobile template in `references/response-template.md` (30-char width target)
-   - Abbreviate station names and day names as defined in the template reference
+   - Abbreviate station names and day names as defined in the template
    - Highlight recommended options (fastest / most direct)
 
-7. **Save journey results**: Save to `results/YYYY-MM-DD_HHMM_origin-destination.txt` with formatted details and metadata footer. The `results/` folder is gitignored.
+8. **Save journey results**: Save to `results/YYYY-MM-DD_HHMM_origin-destination.txt` with formatted details and metadata footer. The `results/` folder is gitignored.
 
 ## Quick Reference
 
