@@ -177,7 +177,9 @@ When users request train information:
    - Parse time: `YYYYMMDDTHHmmss` → extract positions 9–10 (HH) and 11–12 (MM)
    - Journeys: show departure/arrival times, duration, transfers, CO2
    - Departures/arrivals: show time, line, direction, platform, real-time status
-   - Use emoji for readability, highlight recommended options, clean station names (remove city suffixes)
+   - Use the mobile template in `references/response-template.md` (30-char width target)
+   - Abbreviate station names and day names as defined in the template reference
+   - Highlight recommended options (fastest / most direct)
 
 7. **Save journey results**: Save to `results/YYYY-MM-DD_HHMM_origin-destination.txt` with formatted details and metadata footer. The `results/` folder is gitignored.
 
@@ -223,6 +225,7 @@ The skill provides Python utility scripts that save tokens by executing pre-writ
 For detailed documentation, see:
 - **API reference & examples**: `references/api-reference.md`
 - **Common station IDs**: `references/common-stations.md`
+- **Mobile response template**: `references/response-template.md`
 - **Usage examples**: `examples/usage-examples.md`
 - **Utility scripts documentation**: `scripts/README.md`
 - **Helper scripts**: `scripts/save-journey.sh`, `scripts/test-api.sh`
