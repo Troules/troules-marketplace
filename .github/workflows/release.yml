@@ -82,11 +82,8 @@ jobs:
 
           # Only commit if there are changes
           if ! git diff --staged --quiet; then
-            git commit -m "chore: bump version to $VERSION [skip ci]
-
-Automated version update by release workflow
-
-Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+            COMMIT_MSG=$(printf 'chore: bump version to %s [skip ci]\n\nAutomated version update by release workflow\n\nCo-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>' "$VERSION")
+            git commit -m "$COMMIT_MSG"
             git push
           else
             echo "No changes to plugin.json, skipping commit"
