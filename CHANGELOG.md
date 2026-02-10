@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-02-10 - v2.3.0: Marketplace Distribution
+
+### New Features
+- **Marketplace support**: Added `.claude-plugin/marketplace.json` — install with `/plugin marketplace add Troules/sncf-train-schedule` then `/plugin install sncf-train-schedule`
+- **README install guide**: Added marketplace installation instructions
+
+### Refactoring
+- **Skill directory**: Restored `SKILL.md`, `examples/`, `references/`, `scripts/` to `skills/sncf-train-schedule/` (correct Claude Code convention)
+
+### Files Modified
+- `.claude-plugin/marketplace.json` *(new)*
+- `skills/sncf-train-schedule/` *(restored structure)*
+- `README.md`
+
+---
+
 ## 2026-02-10 - v2.2.1: Skill Restructure and Mandatory Template Enforcement
 
 ### Bug Fixes
