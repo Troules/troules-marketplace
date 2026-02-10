@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-02-10 - v2.2.0: Mobile Response Template and CI Fixes
+
+### New Features
+- **Mobile Response Template**: Added `references/response-template.md` with a 30-character-wide layout for mobile app display
+  - Three variants: journey search, departure board, and journey with connection
+  - Station name and day abbreviation tables
+  - Filled examples for both direct and connecting trains
+- **Automated Release Workflow**: Added `.github/workflows/release.yml` to automate tag creation, GitHub releases, and `plugin.json` version updates on CHANGELOG.md push
+
+### Bug Fixes
+- **CI YAML Syntax**: Fixed two YAML block scalar indentation errors in `release.yml` where multi-line bash strings broke out to column 0 (lines 58 and 87)
+
+### Documentation
+- Added versioning and release documentation to CLAUDE.md
+
+### Files Modified
+- `skills/sncf-train-schedule/references/response-template.md` *(new)*
+- `skills/sncf-train-schedule/SKILL.md`
+- `.github/workflows/release.yml` *(new, then fixed)*
+
+---
+
 ## 2026-02-10 - v2.1.0: Python Utilities and Documentation Enhancements
 
 ### New Features
