@@ -10,9 +10,9 @@
 - **Move skill to root**: Moved `SKILL.md`, `examples/`, `references/`, `scripts/` from `skills/sncf-train-schedule/` to the project root — git history preserved
 
 ### Files Modified
-- `SKILL.md` *(moved from `skills/sncf-train-schedule/SKILL.md`)*
-- `examples/`, `references/`, `scripts/` *(moved from `skills/sncf-train-schedule/`)*
+- `SKILL.md`, `examples/`, `references/`, `scripts/` *(moved from `skills/sncf-train-schedule/`)*
 - `tests/test-plugin-structure.sh`
+- `.github/workflows/release.yml` *(fix git identity for annotated tags)*
 
 ---
 
