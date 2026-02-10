@@ -45,9 +45,9 @@ else
 fi
 
 # SKILL.md
-check "SKILL.md exists" test -f "$ROOT/skills/sncf-train-schedule/SKILL.md"
-check "SKILL.md has YAML frontmatter" bash -c "head -1 '$ROOT/skills/sncf-train-schedule/SKILL.md' | grep -q '^---'"
-check "SKILL.md under 2000 words" bash -c "[ \$(wc -w < '$ROOT/skills/sncf-train-schedule/SKILL.md') -lt 2000 ]"
+check "SKILL.md exists" test -f "$ROOT/SKILL.md"
+check "SKILL.md has YAML frontmatter" bash -c "head -1 '$ROOT/SKILL.md' | grep -q '^---'"
+check "SKILL.md under 2000 words" bash -c "[ \$(wc -w < '$ROOT/SKILL.md') -lt 2000 ]"
 
 # hooks.json
 check "hooks.json exists" test -f "$ROOT/hooks/hooks.json"
@@ -60,9 +60,9 @@ check "validate-bash-security.sh exists" test -f "$ROOT/hooks/validate-bash-secu
 check "validate-bash-security.sh is executable" test -x "$ROOT/hooks/validate-bash-security.sh"
 
 # Reference files
-check "api-reference.md exists" test -f "$ROOT/skills/sncf-train-schedule/references/api-reference.md"
-check "usage-examples.md exists" test -f "$ROOT/skills/sncf-train-schedule/examples/usage-examples.md"
-check "save-journey.sh exists" test -f "$ROOT/skills/sncf-train-schedule/scripts/save-journey.sh"
+check "api-reference.md exists" test -f "$ROOT/references/api-reference.md"
+check "usage-examples.md exists" test -f "$ROOT/examples/usage-examples.md"
+check "save-journey.sh exists" test -f "$ROOT/scripts/save-journey.sh"
 
 # .env gitignored
 check ".env is gitignored" bash -c "grep -q '^\.env$' '$ROOT/.gitignore'"
