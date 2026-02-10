@@ -53,9 +53,7 @@ jobs:
           NOTES=$(awk "/## .*v$VERSION/ {flag=1; next} /## [0-9]{4}-[0-9]{2}-[0-9]{2}/ {flag=0} flag" CHANGELOG.md)
 
           if [ -z "$NOTES" ]; then
-            NOTES="Release v$VERSION
-
-See CHANGELOG.md for details."
+            NOTES=$(printf "Release v%s\n\nSee CHANGELOG.md for details." "$VERSION")
           fi
 
           # Save to file (multiline output handling)
