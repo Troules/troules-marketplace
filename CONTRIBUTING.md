@@ -140,6 +140,78 @@ When working with the Navitia API:
 - **Real-time data**: Prefer `data_freshness=realtime` for current info
 - **Privacy**: Never log or expose API tokens
 
+## Versioning and Releases
+
+This project follows [Semantic Versioning](https://semver.org/):
+
+- **MAJOR.MINOR.PATCH** (e.g., 2.1.0)
+  - **MAJOR**: Incompatible API changes (e.g., remove a feature, change API format)
+  - **MINOR**: New features, backward compatible (e.g., add new endpoint support)
+  - **PATCH**: Bug fixes, backward compatible (e.g., fix error handling)
+
+### Creating a Release
+
+Releases are **automated** via GitHub Actions when CHANGELOG.md is updated on the main branch.
+
+**Steps to create a new release:**
+
+1. **Decide the version number** based on your changes:
+   - Breaking changes → bump MAJOR (2.1.0 → 3.0.0)
+   - New features → bump MINOR (2.1.0 → 2.2.0)
+   - Bug fixes → bump PATCH (2.1.0 → 2.1.1)
+
+2. **Update CHANGELOG.md** with a new version section at the top:
+   ```markdown
+   ## 2026-02-11 - v2.2.0: Short Feature Title
+
+   ### New Features
+   - Feature description with details
+   - Another feature
+
+   ### Bug Fixes
+   - Fix description
+
+   ### Files Modified
+   - List of changed files (optional)
+   ```
+
+3. **Create a PR** with your changes (including CHANGELOG update)
+
+4. **Merge the PR** to main branch
+
+5. **Automated workflow runs**:
+   - ✅ Extracts version from CHANGELOG.md
+   - ✅ Updates `.claude-plugin/plugin.json` version field
+   - ✅ Creates git tag (e.g., `v2.2.0`)
+   - ✅ Creates GitHub release with extracted notes
+   - ✅ Commits plugin.json update back to main
+
+**What you need to do manually:**
+- ✍️ Write detailed CHANGELOG entries
+- ✍️ Choose appropriate version number
+- ✍️ Craft clear release narratives
+
+**What's automated:**
+- ✅ Git tag creation
+- ✅ GitHub release creation
+- ✅ plugin.json version updates
+- ✅ Release notes extraction
+
+### Version Consistency
+
+The plugin version is tracked in two places:
+- **CHANGELOG.md**: Source of truth (manual updates)
+- **`.claude-plugin/plugin.json`**: Auto-updated by workflow
+
+Tests verify these stay in sync.
+
+### Conventional Commits
+
+Use conventional commit format for clarity:
+- `feat: add journey filtering` → MINOR version
+- `fix: handle API timeout` → PATCH version
+- `feat!: remove deprecated API` → MAJOR version (note the `!`)
+
 ## Pull Request Review Process
 
 1. **Automated checks**: PRs must pass CI tests

@@ -32,6 +32,17 @@ check "plugin.json exists" test -f "$ROOT/.claude-plugin/plugin.json"
 check "plugin.json is valid JSON" python3 -c "import json; json.load(open('$ROOT/.claude-plugin/plugin.json'))"
 check "plugin.json has name field" python3 -c "import json; d=json.load(open('$ROOT/.claude-plugin/plugin.json')); assert 'name' in d"
 check "plugin.json has description field" python3 -c "import json; d=json.load(open('$ROOT/.claude-plugin/plugin.json')); assert 'description' in d"
+check "plugin.json has version field" python3 -c "import json; d=json.load(open('$ROOT/.claude-plugin/plugin.json')); assert 'version' in d"
+
+# Version consistency check
+PLUGIN_VERSION=$(python3 -c "import json; print(json.load(open('$ROOT/.claude-plugin/plugin.json'))['version'])")
+CHANGELOG_VERSION=$(grep -m 1 -oP '## \d{4}-\d{2}-\d{2} - v\K[0-9]+\.[0-9]+\.[0-9]+' "$ROOT/CHANGELOG.md")
+check "plugin.json version matches CHANGELOG" bash -c "[ '$PLUGIN_VERSION' = '$CHANGELOG_VERSION' ]"
+if [ "$PLUGIN_VERSION" = "$CHANGELOG_VERSION" ]; then
+    echo "  ✓ Version matches: $PLUGIN_VERSION"
+else
+    echo "  ✗ Version mismatch: plugin.json=$PLUGIN_VERSION, CHANGELOG=$CHANGELOG_VERSION"
+fi
 
 # SKILL.md
 check "SKILL.md exists" test -f "$ROOT/skills/sncf-train-schedule/SKILL.md"
