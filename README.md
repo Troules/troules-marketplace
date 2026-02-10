@@ -4,6 +4,13 @@ A Claude Code plugin for checking French train schedules, departures, arrivals, 
 
 ## Installation
 
+### Via Marketplace (recommended)
+
+```bash
+/plugin marketplace add Troules/sncf-train-schedule
+/plugin install sncf-train-schedule
+```
+
 ### Manual Install
 
 ```bash

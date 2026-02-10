@@ -1,0 +1,26 @@
+{
+  "name": "troules-marketplace",
+  "owner": {
+    "name": "Troules"
+  },
+  "metadata": {
+    "description": "Troules Claude Code plugins"
+  },
+  "plugins": [
+    {
+      "name": "sncf-train-schedule",
+      "description": "Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API",
+      "version": "2.2.1",
+      "author": {
+        "name": "Troules"
+      },
+      "homepage": "https://github.com/Troules/sncf-train-schedule",
+      "repository": "https://github.com/Troules/sncf-train-schedule",
+      "license": "MIT",
+      "source": {
+        "source": "github",
+        "repo": "Troules/sncf-train-schedule"
+      }
+    }
+  ]
+}
