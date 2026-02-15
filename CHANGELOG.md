@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-02-15 - v2.4.1: README Marketplace Reframe
+
+### Documentation
+- **README rewritten**: Reframed as Troules' marketplace with a plugin directory table; split install steps (add marketplace then install plugin); updated all URLs to new repo name `troules-marketplace`
+
+### Files Modified
+- `README.md`
+
+---
+
 ## 2026-02-15 - v2.4.0: Marketplace Structure Fix
 
 ### Bug Fixes
