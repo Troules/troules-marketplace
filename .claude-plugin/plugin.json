@@ -4,5 +4,8 @@
   "description": "Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API",
   "author": {
     "name": "Troules"
-  }
+  },
+  "homepage": "https://github.com/Troules/sncf-train-schedule",
+  "repository": "https://github.com/Troules/sncf-train-schedule",
+  "license": "MIT"
 }
