@@ -17,10 +17,7 @@
       "homepage": "https://github.com/Troules/sncf-train-schedule",
       "repository": "https://github.com/Troules/sncf-train-schedule",
       "license": "MIT",
-      "source": {
-        "source": "github",
-        "repo": "Troules/sncf-train-schedule"
-      }
+      "source": "./sncf-train-schedule"
     }
   ]
 }
