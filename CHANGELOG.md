@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-02-16 - v2.6.4: Fix plugin validation issues
+
+### Bug Fixes
+- **API base URL**: All 5 Python scripts now use `api.navitia.io/v1/` (was `api.sncf.com/v1/`) — consistent with all documentation and shell scripts
+- **Lyon station IDs**: Corrected swapped IDs for Lyon Part-Dieu and Lyon Perrache in `api-reference.md`
+- **`validate_datetime.py`**: Added `--quiet` flag for clean script chaining (prints only the `YYYYMMDDTHHmmss` value); `check-trains.md` updated to use `--quiet`
+- **`hooks.json`**: Replaced unsupported `SessionStart` event with `PreToolUse` Bash matcher so `check-token.sh` fires correctly
+
+### Files Modified
+- `sncf-train-schedule/skills/plan-journey/scripts/*.py` (5 scripts)
+- `sncf-train-schedule/skills/plan-journey/references/api-reference.md`
+- `sncf-train-schedule/hooks/hooks.json`
+- `sncf-train-schedule/commands/check-trains.md`
+
+---
+
 ## 2026-02-16 - v2.6.3: Align marketplace.json plugin name with plugin.json
 
 ### Bug Fixes
