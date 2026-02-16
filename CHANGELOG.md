@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-02-16 - v2.6.2: Graceful error handling in API scripts
+
+### Bug Fixes
+- **Prevent chat crashes**: All `sys.exit(1)` calls for user-facing errors (missing token, invalid token, API errors, network errors, empty results) changed to `sys.exit(0)` across all 6 scripts
+- **`.env` fallback**: All 5 API scripts now auto-load a `.env` file via `python-dotenv` (gracefully ignored if package not installed)
+- **`validate_station_id.py`**: Always exits 0 — valid/invalid result communicated via stdout, not exit code
+
+### Files Modified
+- `sncf-train-schedule/skills/plan-journey/scripts/get_arrivals.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/get_departures.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/plan_journey.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/search_stations.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/validate_datetime.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/validate_station_id.py`
+
+---
+
 ## 2026-02-16 - v2.6.1: Rename plugin.json name to sncf-train-schedule
 
 ### Bug Fixes
