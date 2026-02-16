@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-02-16 - v2.5.1: Housekeeping
+
+### Chores
+- **Gitignore `docs/`**: design docs and implementation plans are now local-only (untracked from git)
+- **Gitignore `__pycache__/`**: Python bytecode files (`*.pyc`, `*.pyo`) now excluded
+- **`marketplace.json` sync**: plugin name updated from `sncf-train-schedule` to `plan-journey`; version bumped to `2.5.0`
+
+### Files Modified
+- `.gitignore`
+- `.claude-plugin/marketplace.json`
+
+---
+
 ## 2026-02-16 - v2.5.0: Delay & Disruption Support
 
 ### New Features
