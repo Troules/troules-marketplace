@@ -19,30 +19,8 @@ except ImportError:
     print("Install with: pip install requests", file=sys.stderr)
     sys.exit(1)
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass  # python-dotenv not installed, rely on environment variables
-
-
-def _load_plugin_settings():
-    """Load token from .claude/sncf-train-schedule.local.md if NAVITIA_API_TOKEN not set."""
-    if os.getenv("NAVITIA_API_TOKEN"):
-        return
-    settings_file = os.path.join(os.getcwd(), ".claude", "sncf-train-schedule.local.md")
-    if not os.path.isfile(settings_file):
-        return
-    with open(settings_file) as f:
-        for line in f:
-            if line.startswith("navitia_api_token:"):
-                token = line.split(":", 1)[1].strip().strip("'\"")
-                if token:
-                    os.environ["NAVITIA_API_TOKEN"] = token
-                return
-
-
-_load_plugin_settings()
+from config import load_token
+load_token()
 
 
 def search_stations(query, api_token, count=10):
