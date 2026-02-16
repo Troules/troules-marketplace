@@ -90,6 +90,12 @@ check "api-reference.md exists" test -f "$PLUGIN_DIR/skills/plan-journey/referen
 check "usage-examples.md exists" test -f "$PLUGIN_DIR/skills/plan-journey/examples/usage-examples.md"
 check "save-journey.sh exists" test -f "$PLUGIN_DIR/skills/plan-journey/scripts/save-journey.sh"
 
+# Commands
+check "check-trains.md exists" test -f "$PLUGIN_DIR/commands/check-trains.md"
+check "check-trains.md has YAML frontmatter" bash -c "head -1 '$PLUGIN_DIR/commands/check-trains.md' | grep -q '^---'"
+check "check-trains.md has description field" bash -c "grep -q '^description:' '$PLUGIN_DIR/commands/check-trains.md'"
+check "check-trains.md references ARGUMENTS" bash -c "grep -q 'ARGUMENTS' '$PLUGIN_DIR/commands/check-trains.md'"
+
 # .env gitignored
 check ".env is gitignored" bash -c "grep -q '^\.env$' '$ROOT/.gitignore'"
 
