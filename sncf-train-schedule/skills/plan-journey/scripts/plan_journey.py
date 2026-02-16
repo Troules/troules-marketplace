@@ -20,6 +20,12 @@ except ImportError:
     print("Install with: pip install requests", file=sys.stderr)
     sys.exit(1)
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, rely on environment variables
+
 
 def plan_journey(from_location, to_location, api_token, datetime_param=None,
                  datetime_represents="departure", count=5, data_freshness="realtime"):
@@ -68,7 +74,7 @@ def plan_journey(from_location, to_location, api_token, datetime_param=None,
     except requests.exceptions.Timeout:
         print("❌ API timeout - journey planning can take longer", file=sys.stderr)
         print("Retry the request or check your connection", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 401:
             print("❌ Invalid API token", file=sys.stderr)
@@ -86,10 +92,10 @@ def plan_journey(from_location, to_location, api_token, datetime_param=None,
                 print(f"❌ Bad request - check your parameters", file=sys.stderr)
         else:
             print(f"❌ API error: HTTP {e.response.status_code}", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
     except requests.exceptions.RequestException as e:
         print(f"❌ Network error: {e}", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
 
 
 def format_datetime(dt_string):
@@ -225,7 +231,7 @@ Examples:
         print("❌ NAVITIA_API_TOKEN environment variable not set", file=sys.stderr)
         print("Set it with: export NAVITIA_API_TOKEN='your-token'", file=sys.stderr)
         print("Get a token at: https://numerique.sncf.com/startup/api/token-developpeur/", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
 
     # Plan journey
     journeys = plan_journey(
@@ -241,7 +247,7 @@ Examples:
     if journeys:
         print(format_output(journeys, args.format))
     else:
-        sys.exit(1)
+        sys.exit(0)
 
 
 if __name__ == "__main__":

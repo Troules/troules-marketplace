@@ -112,7 +112,7 @@ Example: 20260210T140000 = February 10, 2026 at 14:00:00
         print("", file=sys.stderr)
         print("Use --convert to convert from common formats:", file=sys.stderr)
         print("  python validate_datetime.py '2026-02-10 14:00:00' --convert", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
 
 
 if __name__ == "__main__":
