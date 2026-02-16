@@ -59,9 +59,9 @@ pip install requests python-dotenv
 ## Key Parameters
 
 - **datetime**: `YYYYMMDDTHHmmss` format (e.g., `20260208T143000`)
-  - Use `python scripts/validate_datetime.py` to validate or convert formats
+  - Use `python3 scripts/validate_datetime.py` to validate or convert formats
 - **from/to**: Coordinates `lon;lat` or station IDs like `stop_area:SNCF:87686006`
-  - Use `python scripts/search_stations.py` to find station IDs
+  - Use `python3 scripts/search_stations.py` to find station IDs
 - **region**: `sncf` (default, covers all SNCF trains nationwide), or regional codes like `fr-idf`, `fr-ne`, `fr-nw`
 - **data_freshness**:
   - `realtime` (default) - includes live delays, cancellations, and platform changes
@@ -99,17 +99,17 @@ export NAVITIA_API_TOKEN='your-token'
 
 **Step 2: Search for station**
 ```bash
-python scripts/search_stations.py "Paris Gare de Lyon"
+python3 scripts/search_stations.py "Paris Gare de Lyon"
 ```
 
 **Step 3: Validate station ID** (optional but recommended)
 ```bash
-python scripts/validate_station_id.py "stop_area:SNCF:87686006"
+python3 scripts/validate_station_id.py "stop_area:SNCF:87686006"
 ```
 
 **Step 4: Get departures**
 ```bash
-python scripts/get_departures.py "stop_area:SNCF:87686006" --count 5
+python3 scripts/get_departures.py "stop_area:SNCF:87686006" --count 5
 ```
 
 ### Plan a Journey (Copy and follow this checklist)
@@ -131,21 +131,21 @@ Task Progress:
 **Step 6: Format datetime** (if planning for specific time)
 ```bash
 # Validate and convert datetime format
-python scripts/validate_datetime.py "2026-02-10 14:00:00" --convert
+python3 scripts/validate_datetime.py "2026-02-10 14:00:00" --convert
 # Returns: 20260210T140000
 ```
 
 **Step 7: Plan journey**
 ```bash
 # Depart now
-python scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
+python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
 
 # Depart at specific time
-python scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
+python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
   --datetime "20260210T140000"
 
 # Arrive by specific time
-python scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
+python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
   --datetime "20260210T180000" --datetime-represents arrival
 ```
 
