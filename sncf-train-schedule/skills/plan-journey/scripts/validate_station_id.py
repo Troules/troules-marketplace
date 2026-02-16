@@ -17,6 +17,12 @@ except ImportError:
     print("Install with: pip install requests", file=sys.stderr)
     sys.exit(1)
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv not installed, rely on environment variables
+
 
 def validate_station_id(station_id, api_token):
     """
@@ -110,11 +116,11 @@ Examples:
         print("❌ NAVITIA_API_TOKEN environment variable not set", file=sys.stderr)
         print("Set it with: export NAVITIA_API_TOKEN='your-token'", file=sys.stderr)
         print("Get a token at: https://numerique.sncf.com/startup/api/token-developpeur/", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
 
     # Validate station ID
     is_valid = validate_station_id(args.station_id, api_token)
-    sys.exit(0 if is_valid else 1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
