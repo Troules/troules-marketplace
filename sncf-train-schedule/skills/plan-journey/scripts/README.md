@@ -12,12 +12,12 @@ export NAVITIA_API_TOKEN='your-token-here'
 
 | Script | Purpose | Example |
 |--------|---------|---------|
-| `search_stations.py` | Find station IDs by name | `python search_stations.py "Paris"` |
-| `validate_station_id.py` | Verify a station ID exists | `python validate_station_id.py "stop_area:SNCF:87686006"` |
-| `validate_datetime.py` | Check/convert datetime format | `python validate_datetime.py "20260210T140000"` |
-| `get_departures.py` | Get departures from a station | `python get_departures.py "stop_area:SNCF:87686006"` |
-| `get_arrivals.py` | Get arrivals at a station | `python get_arrivals.py "stop_area:SNCF:87686006"` |
-| `plan_journey.py` | Plan journey between stations | `python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"` |
+| `search_stations.py` | Find station IDs by name | `python3 search_stations.py "Paris"` |
+| `validate_station_id.py` | Verify a station ID exists | `python3 validate_station_id.py "stop_area:SNCF:87686006"` |
+| `validate_datetime.py` | Check/convert datetime format | `python3 validate_datetime.py "20260210T140000"` |
+| `get_departures.py` | Get departures from a station | `python3 get_departures.py "stop_area:SNCF:87686006"` |
+| `get_arrivals.py` | Get arrivals at a station | `python3 get_arrivals.py "stop_area:SNCF:87686006"` |
+| `plan_journey.py` | Plan journey between stations | `python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"` |
 
 ## Installation
 
@@ -38,9 +38,9 @@ Search for SNCF station IDs by name. Returns matching stations with their IDs an
 
 **Usage:**
 ```bash
-python search_stations.py "Paris Gare de Lyon"
-python search_stations.py "Lyon" --count 10
-python search_stations.py "Marseille" --format json
+python3 search_stations.py "Paris Gare de Lyon"
+python3 search_stations.py "Lyon" --count 10
+python3 search_stations.py "Marseille" --format json
 ```
 
 **Parameters:**
@@ -67,7 +67,7 @@ Validate that a station ID exists and is accessible via the API.
 
 **Usage:**
 ```bash
-python validate_station_id.py "stop_area:SNCF:87686006"
+python3 validate_station_id.py "stop_area:SNCF:87686006"
 ```
 
 **Exit codes:**
@@ -88,11 +88,11 @@ Validate datetime format for the SNCF API (YYYYMMDDTHHmmss). Can also convert fr
 **Usage:**
 ```bash
 # Validate API format
-python validate_datetime.py "20260210T140000"
+python3 validate_datetime.py "20260210T140000"
 
 # Convert from ISO format
-python validate_datetime.py "2026-02-10 14:00:00" --convert
-python validate_datetime.py "2026-02-10T14:00" --convert
+python3 validate_datetime.py "2026-02-10 14:00:00" --convert
+python3 validate_datetime.py "2026-02-10T14:00" --convert
 ```
 
 **Parameters:**
@@ -120,19 +120,19 @@ Get departures from an SNCF station. Shows next trains leaving the station with 
 **Usage:**
 ```bash
 # Get next 10 departures (default)
-python get_departures.py "stop_area:SNCF:87686006"
+python3 get_departures.py "stop_area:SNCF:87686006"
 
 # Get next 5 departures
-python get_departures.py "stop_area:SNCF:87686006" --count 5
+python3 get_departures.py "stop_area:SNCF:87686006" --count 5
 
 # Get departures starting from specific time
-python get_departures.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
+python3 get_departures.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
 
 # Get theoretical schedule only (no real-time delays)
-python get_departures.py "stop_area:SNCF:87686006" --data-freshness base_schedule
+python3 get_departures.py "stop_area:SNCF:87686006" --data-freshness base_schedule
 
 # Get JSON output
-python get_departures.py "stop_area:SNCF:87686006" --format json
+python3 get_departures.py "stop_area:SNCF:87686006" --format json
 ```
 
 **Parameters:**
@@ -162,19 +162,19 @@ Get arrivals at an SNCF station. Shows trains arriving at the station with real-
 **Usage:**
 ```bash
 # Get next 10 arrivals (default)
-python get_arrivals.py "stop_area:SNCF:87686006"
+python3 get_arrivals.py "stop_area:SNCF:87686006"
 
 # Get next 5 arrivals
-python get_arrivals.py "stop_area:SNCF:87686006" --count 5
+python3 get_arrivals.py "stop_area:SNCF:87686006" --count 5
 
 # Get arrivals starting from specific time
-python get_arrivals.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
+python3 get_arrivals.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
 
 # Get theoretical schedule only
-python get_arrivals.py "stop_area:SNCF:87686006" --data-freshness base_schedule
+python3 get_arrivals.py "stop_area:SNCF:87686006" --data-freshness base_schedule
 
 # Get JSON output
-python get_arrivals.py "stop_area:SNCF:87686006" --format json
+python3 get_arrivals.py "stop_area:SNCF:87686006" --format json
 ```
 
 **Parameters:**
@@ -201,24 +201,24 @@ Plan a journey between two SNCF locations (stations or coordinates). Returns mul
 **Usage:**
 ```bash
 # Journey between station IDs
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
 
 # Journey between coordinates (lon;lat format)
-python plan_journey.py "2.3522;48.8566" "4.8357;45.7640"
+python3 plan_journey.py "2.3522;48.8566" "4.8357;45.7640"
 
 # Depart at specific time
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
     --datetime "20260210T140000"
 
 # Arrive by specific time
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
     --datetime "20260210T180000" --datetime-represents arrival
 
 # Get more journey options
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" --count 10
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" --count 10
 
 # Get JSON output
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" --format json
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" --format json
 ```
 
 **Parameters:**
@@ -258,40 +258,40 @@ Transfers: 1
 
 ```bash
 # 1. Search for station
-python search_stations.py "Paris Gare de Lyon"
+python3 search_stations.py "Paris Gare de Lyon"
 
 # 2. Validate the station ID (optional but recommended)
-python validate_station_id.py "stop_area:SNCF:87686006"
+python3 validate_station_id.py "stop_area:SNCF:87686006"
 
 # 3. Get departures
-python get_departures.py "stop_area:SNCF:87686006" --count 5
+python3 get_departures.py "stop_area:SNCF:87686006" --count 5
 ```
 
 ### Plan a Journey
 
 ```bash
 # 1. Search for origin station
-python search_stations.py "Paris Gare de Lyon"
+python3 search_stations.py "Paris Gare de Lyon"
 
 # 2. Search for destination station
-python search_stations.py "Lyon Part Dieu"
+python3 search_stations.py "Lyon Part Dieu"
 
 # 3. Validate both station IDs (optional)
-python validate_station_id.py "stop_area:SNCF:87686006"
-python validate_station_id.py "stop_area:SNCF:87722025"
+python3 validate_station_id.py "stop_area:SNCF:87686006"
+python3 validate_station_id.py "stop_area:SNCF:87722025"
 
 # 4. Plan the journey
-python plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
+python3 plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
 ```
 
 ### Check Specific Time
 
 ```bash
 # 1. Validate and convert datetime format
-python validate_datetime.py "2026-02-10 14:00:00" --convert
+python3 validate_datetime.py "2026-02-10 14:00:00" --convert
 
 # 2. Use the converted datetime
-python get_departures.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
+python3 get_departures.py "stop_area:SNCF:87686006" --datetime "20260210T140000"
 ```
 
 ## Error Handling

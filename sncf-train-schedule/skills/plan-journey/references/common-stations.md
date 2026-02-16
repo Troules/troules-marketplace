@@ -40,8 +40,8 @@ Quick reference for major French train stations. Use these IDs directly with the
 
 ## Tips
 
-- **For other stations**: Use `python scripts/search_stations.py "station name"`
-- **Verify IDs**: Use `python scripts/validate_station_id.py "id"` before making journey requests
+- **For other stations**: Use `python3 scripts/search_stations.py "station name"`
+- **Verify IDs**: Use `python3 scripts/validate_station_id.py "id"` before making journey requests
 - **Coordinates format**: lon;lat (longitude first, then latitude)
 - **ID format**: Always starts with `stop_area:SNCF:` followed by the UIC code
 
