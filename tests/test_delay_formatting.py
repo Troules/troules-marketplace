@@ -67,3 +67,19 @@ def test_format_disruption_arrival_key():
         "base_arrival_date_time": "20260210T160000",
     }
     assert format_disruption(sdt, "arrival_date_time") == "+7min"
+
+
+from get_arrivals import compute_delay_minutes as arr_compute_delay, format_disruption as arr_format_disruption
+
+
+def test_arrivals_delay_helper_matches_departures():
+    """Same logic — verify both scripts export compatible helpers."""
+    assert arr_compute_delay("20260210T160000", "20260210T160500") == 5
+
+
+def test_arrivals_format_disruption():
+    sdt = {
+        "arrival_date_time": "20260210T160500",
+        "base_arrival_date_time": "20260210T160000",
+    }
+    assert arr_format_disruption(sdt, "arrival_date_time") == "+5min"
