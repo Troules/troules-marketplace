@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-02-16 - v2.4.2: Rename Skill to plan-journey
+
+### Refactoring
+- **Renamed skill**: `skills/sncf-train-schedule/` → `skills/plan-journey/` for a more generic, action-oriented name
+- **Updated references**: `SKILL.md` frontmatter, `plugin.json` name field, and test paths updated accordingly
+
+### Files Modified
+- `sncf-train-schedule/skills/plan-journey/` — renamed from `sncf-train-schedule/skills/sncf-train-schedule/`
+- `sncf-train-schedule/.claude-plugin/plugin.json` — name field updated
+- `tests/test-plugin-structure.sh` — hardcoded skill paths updated
+
+---
+
 ## 2026-02-15 - v2.4.1: README Marketplace Reframe
 
 ### Documentation
