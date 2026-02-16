@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-02-16 - v2.6.1: Rename plugin.json name to sncf-train-schedule
+
+### Bug Fixes
+- **`plugin.json` name**: Corrected internal plugin name from `plan-journey` to `sncf-train-schedule` for consistency with the plugin directory name
+
+### Files Modified
+- `sncf-train-schedule/.claude-plugin/plugin.json`
+
+---
+
 ## 2026-02-16 - v2.6.0: Add /check-trains slash command
 
 ### New Features
