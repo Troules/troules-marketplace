@@ -137,6 +137,64 @@ for journey in data.get('journeys', []):
 - **Departures**: `departures[].{route.name, stop_date_time.departure_date_time, display_informations.{direction, code}}`
 - **Arrivals**: `arrivals[].{route.name, stop_date_time.arrival_date_time, display_informations.{direction, code}}`
 
+## Delays & Disruptions
+
+Delay data is only available when using `data_freshness=realtime` (the default in all scripts).
+
+### Fields for Departures and Arrivals
+
+| Field | Path | Description |
+|-------|------|-------------|
+| Scheduled time | `stop_date_time.base_departure_date_time` | Original timetable time |
+| Actual time | `stop_date_time.departure_date_time` | Realtime-adjusted time |
+| Cancellation | `stop_date_time.additional_informations[]` | Contains `"no_departing"` if cancelled |
+
+Same pattern for arrivals: `base_arrival_date_time` vs `arrival_date_time`.
+
+### Fields for Journeys
+
+| Field | Path | Values |
+|-------|------|--------|
+| Journey status | `journeys[].status` | `""` on time · `"SIGNIFICANT_DELAYS"` · `"NO_SERVICE"` (cancelled) · `"MODIFIED_SERVICE"` (rerouted) |
+
+### Computing Delay in Minutes
+
+```python
+from datetime import datetime
+
+def compute_delay_minutes(base_dt_str, actual_dt_str):
+    base = datetime.strptime(base_dt_str, "%Y%m%dT%H%M%S")
+    actual = datetime.strptime(actual_dt_str, "%Y%m%dT%H%M%S")
+    return int((actual - base).total_seconds() // 60)
+
+# Example: base=14:00, actual=14:07 → +7min
+delay = compute_delay_minutes("20260210T140000", "20260210T140700")  # returns 7
+```
+
+### Example: Delayed Departure Response (JSON excerpt)
+
+```json
+{
+  "stop_date_time": {
+    "departure_date_time": "20260210T140700",
+    "base_departure_date_time": "20260210T140000",
+    "additional_informations": []
+  }
+}
+```
+
+### Example: Cancelled Departure Response (JSON excerpt)
+
+```json
+{
+  "stop_date_time": {
+    "departure_date_time": "20260210T140000",
+    "base_departure_date_time": "20260210T140000",
+    "additional_informations": ["no_departing"]
+  }
+}
+```
+
 ## Testing
 
 Use the sandbox region for testing without impacting production:

@@ -110,6 +110,16 @@ def format_duration(seconds):
     return f"{minutes}min"
 
 
+def format_journey_status(journey):
+    """Return status label for a journey: '❌ SUPPRIMÉ', '⚠️', or ''."""
+    status = journey.get("status", "")
+    if status == "NO_SERVICE":
+        return "❌ SUPPRIMÉ"
+    if status in ("SIGNIFICANT_DELAYS", "MODIFIED_SERVICE"):
+        return "⚠️"
+    return ""
+
+
 def format_output(journeys, output_format="human"):
     """Format journey results for display."""
     if output_format == "json":
@@ -123,8 +133,16 @@ def format_output(journeys, output_format="human"):
         duration = format_duration(journey.get("duration", 0))
         nb_transfers = journey.get("nb_transfers", 0)
 
+        status_label = format_journey_status(journey)
         output.append(f"{'='*60}")
-        output.append(f"Journey {i}: {dep_time} → {arr_time} ({duration})")
+        if status_label == "❌ SUPPRIMÉ":
+            output.append(f"Journey {i}: {dep_time} → {arr_time} ({duration}) {status_label}")
+            output.append("")
+            continue
+        elif status_label:
+            output.append(f"Journey {i}: {dep_time} → {arr_time} ({duration}) {status_label}")
+        else:
+            output.append(f"Journey {i}: {dep_time} → {arr_time} ({duration})")
         output.append(f"Transfers: {nb_transfers}")
         output.append("")
 

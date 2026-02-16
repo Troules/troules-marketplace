@@ -88,6 +88,40 @@ def format_datetime(dt_string):
         return dt_string
 
 
+def compute_delay_minutes(base_dt_str, actual_dt_str):
+    """Return delay in minutes (positive = late, negative = early, 0 = on time)."""
+    try:
+        base = datetime.strptime(base_dt_str, "%Y%m%dT%H%M%S")
+        actual = datetime.strptime(actual_dt_str, "%Y%m%dT%H%M%S")
+        return int((actual - base).total_seconds() // 60)
+    except (ValueError, TypeError):
+        return 0
+
+
+def format_disruption(stop_date_time, time_key):
+    """Return disruption label: '+Xmin', '-Xmin', '❌ SUPPRIMÉ', or '' for on-time.
+
+    Args:
+        stop_date_time: The stop_date_time dict from Navitia response
+        time_key: 'departure_date_time' or 'arrival_date_time'
+    """
+    if "no_departing" in stop_date_time.get("additional_informations", []) or \
+       "no_arriving" in stop_date_time.get("additional_informations", []):
+        return "❌ SUPPRIMÉ"
+
+    base_key = f"base_{time_key}"
+    base_time = stop_date_time.get(base_key)
+    actual_time = stop_date_time.get(time_key)
+
+    if not base_time or not actual_time or base_time == actual_time:
+        return ""
+
+    delay = compute_delay_minutes(base_time, actual_time)
+    if delay == 0:
+        return ""
+    return f"+{delay}min" if delay > 0 else f"{delay}min"
+
+
 def format_output(departures, output_format="human"):
     """Format departure results for display."""
     if output_format == "json":
@@ -103,17 +137,17 @@ def format_output(departures, output_format="human"):
 
         line = display_info.get("code", "?")
         direction = display_info.get("direction", "Unknown")
-        dep_time = format_datetime(dep.get("stop_date_time", {}).get("departure_date_time", ""))
+        sdt = dep.get("stop_date_time", {})
+        dep_time = format_datetime(sdt.get("departure_date_time", ""))
+        disruption = format_disruption(sdt, "departure_date_time")
 
         output.append(f"{i}. [{line}] → {direction}")
-        output.append(f"   Departure: {dep_time}")
-
-        # Show delay if in realtime mode
-        if "stop_date_time" in dep:
-            base_time = dep["stop_date_time"].get("base_departure_date_time")
-            actual_time = dep["stop_date_time"].get("departure_date_time")
-            if base_time and actual_time and base_time != actual_time:
-                output.append(f"   ⚠️  Delayed (scheduled: {format_datetime(base_time)})")
+        if disruption == "❌ SUPPRIMÉ":
+            output.append(f"   {disruption}")
+        elif disruption:
+            output.append(f"   Departure: {dep_time} ({disruption})")
+        else:
+            output.append(f"   Departure: {dep_time}")
 
         output.append("")
 

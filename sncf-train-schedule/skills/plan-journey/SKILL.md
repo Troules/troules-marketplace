@@ -168,6 +168,12 @@ Every response with train data (journeys, departures, arrivals) **MUST** use the
 
 **This is not optional.** Do not use tables, bullet lists, or prose to present train results.
 
+**Delay and disruption rules:**
+- On time: no extra output — keep the display clean
+- Delayed: append `(+Xmin)` to the time (e.g. `14:32 (+7min)`)
+- Cancelled: replace the time line with `❌ SUPPRIMÉ`
+- Journey with delays: append `⚠️` to the journey summary line
+
 ## Instructions
 
 When users request train information:
@@ -191,6 +197,8 @@ When users request train information:
    - Parse time: `YYYYMMDDTHHmmss` → extract positions 9–10 (HH) and 11–12 (MM)
    - Journeys: show departure/arrival times, duration, transfers
    - Departures/arrivals: show time, line, direction, platform, real-time status
+   - **Delays**: compare `base_departure_date_time` vs `departure_date_time`; show `(+Xmin)` suffix if different
+   - **Cancellations**: show `❌ SUPPRIMÉ` if `additional_informations` contains `"no_departing"` / `"no_arriving"`, or journey `status == "NO_SERVICE"`
    - Abbreviate station names and day names as defined in the template
    - Highlight recommended options (fastest / most direct)
 

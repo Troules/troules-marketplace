@@ -12,10 +12,10 @@ Target width: **30 characters** (emojis count as 2 columns).
 🚆 {FROM}→{TO}
    {DAY} {DD/MM} · {H:MM-H:MM}
 ══════════════════════════════
-{#}  {DEP}→{ARR}  {DUR}
+{#}  {DEP}→{ARR}  {DUR} {DELAY}
      {TRAINS}  {TRANSFERS}
 ──────────────────────────────
-{#}  {DEP}→{ARR}  {DUR}
+{#}  {DEP}→{ARR}  {DUR} {DELAY}
      {TRAINS}  {TRANSFERS}
 ══════════════════════════════
 ✅ {N} train(s) · {DD/MM HH:MM}
@@ -35,6 +35,7 @@ Target width: **30 characters** (emojis count as 2 columns).
 | `{DUR}` | 5 | `46min` `3h00` |
 | `{TRAINS}` | 14 | `REGIONAURA C18` |
 | `{TRANSFERS}` | 6 | `Direct` `1 chgt` |
+| `{DELAY}` | 7 | `+7min` `⚠️` `` |
 
 ---
 
@@ -45,10 +46,10 @@ Target width: **30 characters** (emojis count as 2 columns).
 🚉 {STATION}
    {DAY} {DD/MM} · à partir {H:MM}
 ══════════════════════════════
-{HH:MM}  {DIRECTION}
+{HH:MM} {DELAY}  {DIRECTION}
          {LINE}
 ──────────────────────────────
-{HH:MM}  {DIRECTION}
+{HH:MM} {DELAY}  {DIRECTION}
          {LINE}
 ══════════════════════════════
 🔍 {N} départs · {HH:MM}
@@ -162,6 +163,26 @@ General rules:
 ──────────────────────────────
 14:32  Marseille StC
        TGV INOUÏ 6173
+══════════════════════════════
+🔍 3 départs · 14:00
+══════════════════════════════
+```
+
+### Delayed and cancelled trains
+
+```
+══════════════════════════════
+🚉 Lyon PDieu
+   Lun 10/02 · à partir 14:00
+══════════════════════════════
+14:00    St-Étienne
+         REGIONAURA C18
+──────────────────────────────
+14:16 +7min  Grenoble
+         TER 18045
+──────────────────────────────
+❌ SUPPRIMÉ  Marseille StC
+         TGV INOUÏ 6173
 ══════════════════════════════
 🔍 3 départs · 14:00
 ══════════════════════════════
