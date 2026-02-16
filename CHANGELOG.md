@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-02-16 - v2.6.0: Add /check-trains slash command
+
+### New Features
+- **`/check-trains` command**: New slash command for checking French train schedules directly — supports journey planning (`Paris to Lyon`), departures (`next trains from Marseille`), arrivals, and optional datetime (`at 14:30`, `at tomorrow 9am`)
+- **Datetime argument**: Datetime is validated and converted via `scripts/validate_datetime.py` before being passed to the API scripts
+
+### CI
+- Added 4 structure checks for command files in `test-plugin-structure.sh` (exists, frontmatter, description, `$ARGUMENTS` reference)
+
+### Files Modified
+- `sncf-train-schedule/commands/check-trains.md` (new)
+- `tests/test-plugin-structure.sh`
+- `.claude-plugin/marketplace.json`
+- `sncf-train-schedule/.claude-plugin/plugin.json`
+
+---
+
 ## 2026-02-16 - v2.5.3: Enforce scripts over ad-hoc curl commands
 
 ### Bug Fixes

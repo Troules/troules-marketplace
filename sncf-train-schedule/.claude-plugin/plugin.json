@@ -1,6 +1,6 @@
 {
   "name": "plan-journey",
-  "version": "2.5.3",
+  "version": "2.6.0",
   "description": "Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API",
   "author": {
     "name": "Troules"
