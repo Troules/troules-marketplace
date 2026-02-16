@@ -39,15 +39,20 @@ A Claude Code plugin for checking French train schedules, departures, arrivals, 
 
 ### Prerequisites
 
-1. **API Token**: Register at https://numerique.sncf.com/startup/api/token-developpeur/ for a free token
-2. Set the token as an environment variable:
-   ```bash
-   export NAVITIA_API_TOKEN="your-token-here"
-   ```
-   Or create a `.env` file in the plugin directory:
-   ```bash
-   echo 'NAVITIA_API_TOKEN=your-token-here' > .env
-   ```
+**API Token**: Register at https://numerique.sncf.com/startup/api/token-developpeur/ for a free token.
+
+**Recommended — persistent setup** (survives plugin updates, gitignored):
+```
+/setup your-token-here
+```
+This saves the token to `.claude/sncf-train-schedule.local.md` in your project. All scripts and hooks pick it up automatically.
+
+**Alternative — session only**:
+```bash
+export NAVITIA_API_TOKEN="your-token-here"
+```
+
+**Token lookup order**: `NAVITIA_API_TOKEN` env var → `.claude/sncf-train-schedule.local.md` → `.env`
 
 ### Quick Start
 
@@ -79,19 +84,26 @@ Once installed, ask Claude about French trains:
 sncf-train-schedule/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
+├── commands/
+│   ├── check-trains.md          # /check-trains slash command
+│   └── setup.md                 # /setup token configuration
 ├── skills/
-│   └── sncf-train-schedule/
+│   └── plan-journey/
 │       ├── SKILL.md             # Core skill instructions
 │       ├── references/
 │       │   └── api-reference.md # Detailed API docs
 │       ├── examples/
 │       │   └── usage-examples.md
 │       └── scripts/
-│           ├── save-journey.sh  # Journey result saver
-│           └── test-api.sh      # API test script
+│           ├── search_stations.py
+│           ├── get_departures.py
+│           ├── get_arrivals.py
+│           ├── plan_journey.py
+│           ├── validate_station_id.py
+│           └── validate_datetime.py
 ├── hooks/
 │   ├── hooks.json               # Hook manifest
-│   ├── check-token.sh           # Token validation (SessionStart)
+│   ├── check-token.sh           # Token validation (PreToolUse)
 │   └── validate-bash-security.sh # Security check (PreToolUse)
 ```
 
