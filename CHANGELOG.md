@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-02-16 - v2.5.3: Enforce scripts over ad-hoc curl commands
+
+### Bug Fixes
+- **Competing signals in SKILL.md**: Removed raw `curl` examples from `Instructions` (step 6) and `Quick Reference` that caused Claude to default to ad-hoc curl instead of the utility scripts
+- **Prohibition added**: Added ⛔ hard rule at the top of `Instructions` — "NEVER write ad-hoc `curl` commands or generate Python code inline. ALWAYS use the scripts in `scripts/`. No exceptions."
+- **Rationalization table added**: Added table of temptations vs. reality to resist common rationalizations for bypassing scripts
+- **Quick Reference updated**: Replaced raw curl examples with equivalent script commands
+
+### Files Modified
+- `sncf-train-schedule/skills/plan-journey/SKILL.md`
+- `.claude-plugin/marketplace.json`
+
+### Closes
+- Issue #34: Claude MUST use scripts in scripts folder instead of doing curls and generate python by himself
+
+---
+
 ## 2026-02-16 - v2.5.2: Fix python3 command in skill docs
 
 ### Bug Fixes

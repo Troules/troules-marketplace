@@ -176,22 +176,39 @@ Every response with train data (journeys, departures, arrivals) **MUST** use the
 
 ## Instructions
 
+⛔ **NEVER write ad-hoc `curl` commands or generate Python code inline. ALWAYS use the scripts in `scripts/`. No exceptions.**
+
+| Temptation | Reality |
+|---|---|
+| "I'll just do a quick curl" | The scripts handle auth, errors, and formatting. Use them. |
+| "I need custom params" | Scripts accept `--count`, `--datetime`, etc. Check `--help`. |
+| "I'll generate Python inline" | Scripts already exist and are tested. Use them. |
+
 When users request train information:
 
-1. **Read the response template**: Open `references/response-template.md` first. You will need it in step 6.
+1. **Read the response template**: Open `references/response-template.md` first. You will need it in step 7.
 
 2. **Get API token**: Check `NAVITIA_API_TOKEN` env var or source `.env`. If missing, direct users to https://numerique.sncf.com/startup/api/token-developpeur/ for a free token.
 
-3. **Identify region**: Default to `sncf` for SNCF trains. Use `/coverage` to list available regions.
+3. **Identify region**: Default to `sncf` for SNCF trains.
 
-4. **Search locations**: Use `/places` to find station IDs. Show top results for user confirmation.
+4. **Search locations**: Use the script to find station IDs. Show top results for user confirmation.
+   ```bash
+   python3 scripts/search_stations.py "station name"
+   ```
 
-5. **Format datetime**: Convert natural language to `YYYYMMDDTHHmmss`. Use current time if not specified.
+5. **Format datetime**: Use the script to convert natural language to `YYYYMMDDTHHmmss`. Use current time if not specified.
+   ```bash
+   python3 scripts/validate_datetime.py "2026-02-10 14:00" --convert
+   ```
 
-6. **Make API requests**:
-   - **Always use header auth**: `curl -H "Authorization: $NAVITIA_API_TOKEN" "URL"`
-   - Save JSON to files before parsing (avoid piping issues)
-   - On "no token" error → check auth format; on 403 → try `sncf` region; on empty response → broaden search terms
+6. **Make API requests using the scripts**:
+   ```bash
+   python3 scripts/get_departures.py "stop_area:SNCF:87686006" --count 5
+   python3 scripts/get_arrivals.py "stop_area:SNCF:87686006" --count 5
+   python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
+   ```
+   - On "no token" error → check `NAVITIA_API_TOKEN` env var; on 403 → try `sncf` region; on empty response → broaden search terms
 
 7. **Present results using the mobile template** (from `references/response-template.md`):
    - Parse time: `YYYYMMDDTHHmmss` → extract positions 9–10 (HH) and 11–12 (MM)
@@ -207,13 +224,25 @@ When users request train information:
 ## Quick Reference
 
 ```bash
-# Search station
-curl -H "Authorization: $NAVITIA_API_TOKEN" \
-  "https://api.navitia.io/v1/coverage/sncf/places?q=paris%20gare%20de%20lyon"
+# Search for a station
+python3 scripts/search_stations.py "Paris Gare de Lyon"
 
-# Get departures
-curl -H "Authorization: $NAVITIA_API_TOKEN" \
-  "https://api.navitia.io/v1/coverage/sncf/stop_areas/stop_area:SNCF:87686006/departures?from_datetime=20260208T140000&count=5"
+# Validate a station ID
+python3 scripts/validate_station_id.py "stop_area:SNCF:87686006"
+
+# Convert datetime format
+python3 scripts/validate_datetime.py "2026-02-10 14:00" --convert
+
+# Get departures from a station
+python3 scripts/get_departures.py "stop_area:SNCF:87686006" --count 5
+
+# Get arrivals at a station
+python3 scripts/get_arrivals.py "stop_area:SNCF:87686006" --count 5
+
+# Plan a journey
+python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025"
+python3 scripts/plan_journey.py "stop_area:SNCF:87686006" "stop_area:SNCF:87722025" \
+  --datetime "20260210T140000"
 ```
 
 ## Utility Scripts
