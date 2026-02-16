@@ -45,6 +45,31 @@ else
     echo "  ✗ Version mismatch: plugin.json=$PLUGIN_VERSION, CHANGELOG=$CHANGELOG_VERSION"
 fi
 
+# marketplace.json version consistency
+MARKETPLACE_VERSION=$(python3 -c "
+import json
+plugins = json.load(open('$ROOT/.claude-plugin/marketplace.json'))['plugins']
+match = next((p for p in plugins if p['name'] == 'plan-journey'), None)
+print(match['version'] if match else '')
+")
+check "marketplace.json version matches plugin.json" bash -c "[ '$MARKETPLACE_VERSION' = '$PLUGIN_VERSION' ]"
+if [ "$MARKETPLACE_VERSION" = "$PLUGIN_VERSION" ]; then
+    echo "  ✓ Version matches: $MARKETPLACE_VERSION"
+else
+    echo "  ✗ Version mismatch: marketplace.json=$MARKETPLACE_VERSION, plugin.json=$PLUGIN_VERSION"
+fi
+
+# Git tag consistency (only when running on a tagged commit)
+if [[ "${GITHUB_REF:-}" == refs/tags/v* ]]; then
+    TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+    check "plugin.json version matches git tag" bash -c "[ '$PLUGIN_VERSION' = '$TAG_VERSION' ]"
+    if [ "$PLUGIN_VERSION" = "$TAG_VERSION" ]; then
+        echo "  ✓ Tag matches: v$TAG_VERSION"
+    else
+        echo "  ✗ Version mismatch: plugin.json=$PLUGIN_VERSION, tag=v$TAG_VERSION"
+    fi
+fi
+
 # SKILL.md
 check "SKILL.md exists" test -f "$PLUGIN_DIR/skills/plan-journey/SKILL.md"
 check "SKILL.md has YAML frontmatter" bash -c "head -1 '$PLUGIN_DIR/skills/plan-journey/SKILL.md' | grep -q '^---'"
