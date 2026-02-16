@@ -83,3 +83,20 @@ def test_arrivals_format_disruption():
         "base_arrival_date_time": "20260210T160000",
     }
     assert arr_format_disruption(sdt, "arrival_date_time") == "+5min"
+
+
+from plan_journey import format_journey_status
+
+
+def test_journey_status_on_time():
+    assert format_journey_status({}) == ""
+    assert format_journey_status({"status": ""}) == ""
+
+
+def test_journey_status_delayed():
+    assert format_journey_status({"status": "SIGNIFICANT_DELAYS"}) == "⚠️"
+    assert format_journey_status({"status": "MODIFIED_SERVICE"}) == "⚠️"
+
+
+def test_journey_status_cancelled():
+    assert format_journey_status({"status": "NO_SERVICE"}) == "❌ SUPPRIMÉ"
