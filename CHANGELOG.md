@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-02-16 - v2.6.3: Align marketplace.json plugin name with plugin.json
+
+### Bug Fixes
+- **`marketplace.json` name**: Renamed plugin entry from `plan-journey` to `sncf-train-schedule` for consistency with `plugin.json`
+- **Test script**: Updated hardcoded name lookup in `test-plugin-structure.sh` to match
+
+### Files Modified
+- `.claude-plugin/marketplace.json`
+- `tests/test-plugin-structure.sh`
+
+---
+
 ## 2026-02-16 - v2.6.2: Graceful error handling in API scripts
 
 ### Bug Fixes

@@ -49,7 +49,7 @@ fi
 MARKETPLACE_VERSION=$(python3 -c "
 import json
 plugins = json.load(open('$ROOT/.claude-plugin/marketplace.json'))['plugins']
-match = next((p for p in plugins if p['name'] == 'plan-journey'), None)
+match = next((p for p in plugins if p['name'] == 'sncf-train-schedule'), None)
 print(match['version'] if match else '')
 ")
 check "marketplace.json version matches plugin.json" bash -c "[ '$MARKETPLACE_VERSION' = '$PLUGIN_VERSION' ]"
