@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-02-16 - v2.5.0: Delay & Disruption Support
+
+### New Features
+- **Delay display**: departures and arrivals now show `(+Xmin)` next to the time when a train is running late, computed from `base_departure_date_time` vs `departure_date_time`
+- **Cancellation indicator**: cancelled trains show `❌ SUPPRIMÉ` instead of a time in all scripts and the mobile response template
+- **Journey disruption status**: `plan_journey.py` now reads the journey-level `status` field — delayed journeys get a `⚠️` marker, cancelled journeys show `❌ SUPPRIMÉ`
+- **15 new unit tests**: first pytest file in the project (`tests/test_delay_formatting.py`) covering all disruption states
+
+### Documentation
+- `response-template.md`: new `{DELAY}` variable, updated template blocks, delayed/cancelled filled example
+- `api-reference.md`: new "Delays & Disruptions" section with field tables, Python delay calculation snippet, and JSON examples
+- `SKILL.md`: delay/cancellation formatting rules added to Response Formatting section and Instructions step 7
+
+### Files Modified
+- `sncf-train-schedule/skills/plan-journey/scripts/get_departures.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/get_arrivals.py`
+- `sncf-train-schedule/skills/plan-journey/scripts/plan_journey.py`
+- `sncf-train-schedule/skills/plan-journey/references/response-template.md`
+- `sncf-train-schedule/skills/plan-journey/references/api-reference.md`
+- `sncf-train-schedule/skills/plan-journey/SKILL.md`
+- `tests/test_delay_formatting.py` (new)
+
+---
+
 ## 2026-02-16 - v2.4.2: Rename Skill to plan-journey
 
 ### Refactoring
