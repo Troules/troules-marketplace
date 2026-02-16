@@ -1,3 +1,6 @@
+# Design docs and implementation plans (local development only)
+docs/
+
 # Environment variables
 .env
 
@@ -37,3 +40,8 @@ logs/
 # Temporary files
 *.tmp
 temp/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
