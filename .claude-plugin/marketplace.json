@@ -18,6 +18,18 @@
       "repository": "https://github.com/Troules/troules-marketplace",
       "license": "MIT",
       "source": "./sncf-train-schedule"
+    },
+    {
+      "name": "sumYT",
+      "description": "Summarize YouTube videos with timestamped chapters, tables, and markdown output. Supports follow-up Q&A with web search.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Troules"
+      },
+      "homepage": "https://github.com/Troules/troules-marketplace",
+      "repository": "https://github.com/Troules/troules-marketplace",
+      "license": "MIT",
+      "source": "./sumYT"
     }
   ]
 }
