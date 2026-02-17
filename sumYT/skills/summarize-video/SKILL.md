@@ -33,7 +33,7 @@ Detect language from the transcript text (French, English, Spanish, etc.) — th
 
 ### Step 3: Segment into chapters
 
-Divide the timed transcript into 5-10 chapters based on topic shifts:
+Divide the timed transcript into 3-10 chapters based on topic shifts:
 - Look for transition phrases ("now let's talk about", "moving on", "next", "in this section", etc.)
 - Look for topic or subject changes in the content
 - Prefer natural boundaries over arbitrary time splits
