@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-02-17 - v2.7.0: Persistent API token via plugin settings
+
+### New Features
+- **`/setup` command**: Save the Navitia API token once with `/setup your-token` — stored in `.claude/sncf-train-schedule.local.md`, gitignored, survives plugin updates
+- **Token persistence**: All scripts and `check-token.sh` now auto-load the token from `.claude/sncf-train-schedule.local.md` with priority: env var → settings file → `.env`
+- **Shared `config.py`**: Token loading logic extracted to a single module instead of duplicated across all scripts
+
+### Files Modified
+- `sncf-train-schedule/commands/setup.md` (new)
+- `sncf-train-schedule/skills/plan-journey/scripts/config.py` (new)
+- `sncf-train-schedule/hooks/check-token.sh`
+- `sncf-train-schedule/skills/plan-journey/SKILL.md`
+- `sncf-train-schedule/skills/plan-journey/scripts/*.py` (5 scripts)
+- `README.md`
+
+---
+
 ## 2026-02-16 - v2.6.4: Fix plugin validation issues
 
 ### Bug Fixes
