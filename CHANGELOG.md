@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-02-21 - v2.8.0: sumYT — Replace MCP with youtube-transcript-api
+
+### Changes
+- **sumYT**: Replace broken Node.js MCP server (`@kimtaeyoon83/mcp-server-youtube-transcript`) with a Python script using `youtube-transcript-api`
+- New script: `sumYT/skills/summarize-video/scripts/get_transcript.py` — accepts a video ID, outputs JSON array of `{text, start, duration}` snippets
+- SKILL.md Step 2 rewritten to call the script via `Bash` and parse JSON output
+- Typed exception handling for `VideoUnavailable`, `TranscriptsDisabled`, `NoTranscriptFound`
+
+### Prerequisites change
+- **Removed:** Node.js / npx
+- **Added:** `pip install youtube-transcript-api`
+
+### Files Modified
+- `sumYT/skills/summarize-video/scripts/get_transcript.py` (new)
+- `sumYT/skills/summarize-video/SKILL.md`
+- `sumYT/commands/sumYT.md`
+- `sumYT/.mcp.json` (emptied)
+- `sumYT/.claude-plugin/plugin.json` (v1.0.0 → v1.1.0)
+
+---
+
 ## 2026-02-17 - v2.7.0: Persistent API token via plugin settings
 
 ### New Features
