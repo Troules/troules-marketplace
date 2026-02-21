@@ -10,7 +10,7 @@
     {
       "name": "sncf-train-schedule",
       "description": "Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API",
-      "version": "2.7.0",
+      "version": "2.8.0",
       "author": {
         "name": "Troules"
       },
@@ -18,6 +18,18 @@
       "repository": "https://github.com/Troules/troules-marketplace",
       "license": "MIT",
       "source": "./sncf-train-schedule"
+    },
+    {
+      "name": "sumYT",
+      "description": "Summarize YouTube videos with timestamped chapters, tables, and markdown output. Supports follow-up Q&A with web search.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Troules"
+      },
+      "homepage": "https://github.com/Troules/troules-marketplace",
+      "repository": "https://github.com/Troules/troules-marketplace",
+      "license": "MIT",
+      "source": "./sumYT"
     }
   ]
 }

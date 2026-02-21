@@ -7,6 +7,7 @@ A marketplace of Claude Code plugins by [Troules](https://github.com/Troules).
 | Plugin | Description |
 |--------|-------------|
 | [sncf-train-schedule](#sncf-train-schedule) | Check French train schedules, departures, arrivals, and plan journeys using the SNCF/Navitia API |
+| [sumYT](#sumYT) | Summarize YouTube videos with timestamped chapters, tables, and markdown output |
 
 ---
 
@@ -116,6 +117,69 @@ bash tests/test-plugin-structure.sh
 # API tests (requires token)
 export NAVITIA_API_TOKEN="your-token"
 bash tests/test-api-integration.sh
+```
+
+---
+
+## sumYT
+
+A Claude Code plugin that summarizes YouTube videos into structured markdown documents with timestamped chapters, tables, and key takeaways. Supports follow-up Q&A backed by web search.
+
+### Prerequisites
+
+**Node.js**: Required to run the YouTube transcript MCP server via `npx`.
+The MCP package (`@kimtaeyoon83/mcp-server-youtube-transcript`) installs automatically on first use.
+
+No API key needed — transcripts are fetched directly from YouTube.
+
+### Quick Start
+
+Once installed, use the slash command with any YouTube URL:
+
+```
+/sumYT https://www.youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+Or ask naturally:
+
+- "Summarize this video: https://youtu.be/..."
+- "What is this YouTube video about? <url>"
+- "Give me a summary with chapters of <url>"
+
+After the summary is saved, ask follow-up questions:
+
+- "Can you explain more about the part on X?"
+- "Find me more resources on the topic discussed at 12:30"
+- "What are the main arguments against what the speaker said?"
+
+### Features
+
+- Timestamped chapters with direct links to video moments
+- Language auto-detection (summary written in the video's language)
+- Structured tables for key points within each chapter
+- Key Takeaways section at the end
+- Saved to `.claude/output/sumYT/YYYY-MM-DD_<title>.md`
+- Follow-up Q&A mode with WebSearch and WebFetch
+
+### Output
+
+Summaries are saved to `.claude/output/sumYT/` in the current project directory.
+The directory is gitignored — results stay local.
+
+### Plugin Structure
+
+```
+sumYT/
+├── .claude-plugin/
+│   └── plugin.json                         # Plugin manifest
+├── .mcp.json                               # youtube-transcript MCP server (uvx)
+├── commands/
+│   └── sumYT.md                            # /sumYT slash command
+└── skills/
+    └── summarize-video/
+        ├── SKILL.md                        # Core skill: workflow, format rules
+        └── references/
+            └── output-template.md          # Exact markdown format reference
 ```
 
 ---
