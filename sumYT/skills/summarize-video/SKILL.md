@@ -22,19 +22,35 @@ If duration is not available from the page, leave it as `N/A` in the document he
 
 ### Step 2: Fetch timed transcript
 
-Call `mcp__plugin_sumYT_youtube-transcript__get_transcript` with:
-- `url`: the YouTube URL
-- `include_timestamps`: `true`
+Run the transcript script via Bash. Use the bare video ID (e.g. `dQw4w9WgXcQ`) extracted in Step 1 — not the full URL:
 
-The tool returns the full transcript with inline timestamps in `[M:SS]` format, e.g.:
+```bash
+python3 "$(git rev-parse --show-toplevel)/sumYT/skills/summarize-video/scripts/get_transcript.py" <video_id>
 ```
-[0:05] Welcome to this video about machine learning.
-[0:32] Today we'll cover three main topics.
+
+`git rev-parse --show-toplevel` resolves the absolute repository root regardless of your current working directory.
+
+The script outputs a JSON array of snippets:
+```json
+[{"text": "Hello", "start": 0.0, "duration": 1.54}, ...]
 ```
+
+Each snippet has:
+- `text`: the spoken text
+- `start`: timestamp in seconds (float)
+- `duration`: duration in seconds (float)
+
+Convert `start` seconds to `[M:SS]` format for display:
+- `M = floor(start / 60)`
+- `SS = floor(start % 60)` (zero-padded to 2 digits)
+
+Example: `start=92.5` → `[1:32]`
+
+If the script exits with a non-zero code, report the error to the user (the video may have no transcript, be unavailable, or have transcripts disabled).
 
 Detect language from the transcript text (French, English, Spanish, etc.) — the summary will be written in this language.
 
-To convert a `[M:SS]` timestamp to seconds for YouTube links: `seconds = minutes * 60 + seconds`.
+To convert a `[M:SS]` timestamp back to seconds for YouTube links: `seconds = minutes * 60 + seconds`.
 
 ### Step 3: Segment into chapters
 
@@ -96,19 +112,15 @@ Extract the video ID from the URL before composing the document:
 
 Use the extracted ID for all timestamp links: `https://youtu.be/<VIDEO_ID>?t=<seconds>`
 
-## MCP Tool Names
+## Prerequisites
 
-The exact tool names depend on how Claude Code normalizes the plugin and server names.
-If tool calls fail, run `/mcp` in Claude Code to see the actual registered names.
+The `youtube-transcript-api` Python package must be installed:
 
-Expected name (verify with `/mcp` after installation):
-- `mcp__plugin_sumYT_youtube-transcript__get_transcript`
+```bash
+pip install youtube-transcript-api
+```
 
-Tool parameters:
-- `url` (required): the full YouTube URL
-- `include_timestamps` (set to `true`): includes `[M:SS]` markers in the output
-- `lang` (optional, default `en`): language code — auto-falls back if unavailable
-- `strip_ads` (optional, default `true`): filters sponsorship segments
+No Node.js or MCP server is required.
 
 ## References
 
