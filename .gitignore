@@ -45,3 +45,6 @@ temp/
 __pycache__/
 *.pyc
 *.pyo
+
+# Serena project files
+.serena/

@@ -15,6 +15,11 @@ except:
     print('')
 " 2>/dev/null)
 
+# Only run for SNCF-related commands
+if ! echo "$COMMAND" | grep -qiE '(navitia|sncf|plan_journey|search_stations|get_departures|get_arrivals|validate_station|validate_datetime)'; then
+    exit 0
+fi
+
 # Check for UUID-like patterns (common API token format)
 # Navitia tokens look like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 if echo "$COMMAND" | grep -qE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'; then

@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["youtube-transcript-api"]
+# ///
 """
 Fetch a YouTube transcript and output JSON to stdout.
 
@@ -34,7 +38,7 @@ def main():
     except ImportError:
         print(
             "Error: youtube-transcript-api is not installed.\n"
-            "Run: pip install youtube-transcript-api",
+            "Run via: uv run get_transcript.py <video_id>",
             file=sys.stderr,
         )
         sys.exit(1)

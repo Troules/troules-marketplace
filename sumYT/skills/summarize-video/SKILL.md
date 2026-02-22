@@ -10,22 +10,41 @@ with timestamped chapters, tables, and key takeaways. Save the result and enter 
 
 ## Workflow
 
-### Step 1: Fetch video metadata
+### Step 1: Extract Video ID
 
-Use `WebFetch` on the YouTube URL to extract metadata from the page HTML:
-- Video title (from `<title>` or `og:title`)
-- Channel name (from `og:site_name` or the channel link)
-- Duration (from `og:video:duration` or visible on the page)
-- Video ID (see Video ID Extraction below) — needed for all timestamp links
+Extract the video ID from the URL before doing anything else — it is needed for the metadata fetch and all timestamp links:
 
-If duration is not available from the page, leave it as `N/A` in the document header.
+| URL Format | Where the ID is |
+|------------|-----------------|
+| `https://www.youtube.com/watch?v=ABC123` | `v` query parameter |
+| `https://youtu.be/ABC123` | last path segment |
+| `https://youtube.com/watch?v=ABC123&t=60` | `v` query parameter |
+| `https://www.youtube.com/embed/ABC123` | last path segment |
 
-### Step 2: Fetch timed transcript
+Use the extracted ID for all timestamp links: `https://youtu.be/<VIDEO_ID>?t=<seconds>`
+
+### Step 2: Fetch video metadata
+
+> **Do not `WebFetch` `www.youtube.com` directly — it will fail.** Always use the noembed endpoint below.
+
+Use `WebFetch` on the noembed.com oEmbed proxy to retrieve video metadata:
+
+```
+GET https://noembed.com/embed?url=https://www.youtube.com/watch?v=<VIDEO_ID>
+```
+
+The response is JSON and includes:
+- `title` — video title
+- `author_name` — channel name
+
+Note: noembed does not return video duration. Duration will be derived from the transcript in Step 3.
+
+### Step 3: Fetch timed transcript
 
 Run the transcript script via Bash. Use the bare video ID (e.g. `dQw4w9WgXcQ`) extracted in Step 1 — not the full URL:
 
 ```bash
-python3 "$(git rev-parse --show-toplevel)/sumYT/skills/summarize-video/scripts/get_transcript.py" <video_id>
+uv run "$(git rev-parse --show-toplevel)/sumYT/skills/summarize-video/scripts/get_transcript.py" <video_id>
 ```
 
 `git rev-parse --show-toplevel` resolves the absolute repository root regardless of your current working directory.
@@ -40,6 +59,17 @@ Each snippet has:
 - `start`: timestamp in seconds (float)
 - `duration`: duration in seconds (float)
 
+> **Large transcript note:** If the Bash tool returns an "Output too large" notice, read the full JSON from the saved temp file path shown in the tool result before proceeding.
+
+**Calculate duration from the transcript:**
+
+```
+last_snippet = transcript[-1]
+duration_seconds = last_snippet["start"] + last_snippet["duration"]
+```
+
+Convert to `H:MM:SS` format (or `M:SS` if under one hour) for use in the **Duration** field of the document header.
+
 Convert `start` seconds to `[M:SS]` format for display:
 - `M = floor(start / 60)`
 - `SS = floor(start % 60)` (zero-padded to 2 digits)
@@ -52,7 +82,7 @@ Detect language from the transcript text (French, English, Spanish, etc.) — th
 
 To convert a `[M:SS]` timestamp back to seconds for YouTube links: `seconds = minutes * 60 + seconds`.
 
-### Step 3: Segment into chapters
+### Step 4: Segment into chapters
 
 Divide the timed transcript into 3-10 chapters based on topic shifts:
 - Look for transition phrases ("now let's talk about", "moving on", "next", "in this section", etc.)
@@ -63,7 +93,7 @@ Divide the timed transcript into 3-10 chapters based on topic shifts:
 For videos under 10 minutes: 3-5 chapters is appropriate.
 For videos over 1 hour: up to 10 chapters.
 
-### Step 4: Compose the markdown document
+### Step 5: Compose the markdown document
 
 Read `references/output-template.md` first, then follow it exactly.
 
@@ -72,9 +102,9 @@ Key rules:
 - Language matches the video transcript language
 - Timestamp links format: `https://youtu.be/<VIDEO_ID>?t=<seconds>` (integer seconds)
 - Use tables for structured/comparative data; use prose paragraphs for narrative content
-- Key Takeaways section always at the end: 3-7 bullets
+- Key Takeaways section always between Overview and Table of Contents: 3-7 bullets
 
-### Step 5: Save the file
+### Step 6: Save the file
 
 Generate a slug from the video title:
 - Lowercase
@@ -86,7 +116,7 @@ Save path: `.claude/output/sumYT/YYYY-MM-DD_<slug>.md`
 
 Create the directory if it does not exist.
 
-### Step 6: Enter follow-up mode
+### Step 7: Enter follow-up mode
 
 After saving, confirm to the user:
 
@@ -99,29 +129,21 @@ When answering follow-up questions:
 - Do not re-summarize the entire video — answer only the specific question asked
 - Keep answers focused and concise
 
-## Video ID Extraction
-
-Extract the video ID from the URL before composing the document:
-
-| URL Format | Where the ID is |
-|------------|-----------------|
-| `https://www.youtube.com/watch?v=ABC123` | `v` query parameter |
-| `https://youtu.be/ABC123` | last path segment |
-| `https://youtube.com/watch?v=ABC123&t=60` | `v` query parameter |
-| `https://www.youtube.com/embed/ABC123` | last path segment |
-
-Use the extracted ID for all timestamp links: `https://youtu.be/<VIDEO_ID>?t=<seconds>`
-
 ## Prerequisites
 
-The `youtube-transcript-api` Python package must be installed:
+**Python 3.12+** and **[uv](https://docs.astral.sh/uv/)** are required.
+
+Install uv (macOS/Linux):
 
 ```bash
-pip install youtube-transcript-api
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+No API key or manual package installation needed — `uv run` installs `youtube-transcript-api` automatically on first use.
 
 No Node.js or MCP server is required.
 
 ## References
 
 - **`references/output-template.md`** — Exact markdown format to replicate for every summary
+- **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** — Python library used to fetch transcripts

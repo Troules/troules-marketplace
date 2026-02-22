@@ -2,6 +2,21 @@
 # PreToolUse hook: Verify NAVITIA_API_TOKEN is available
 # Non-blocking — always exits 0, warns if token missing
 
+# Only run for SNCF-related commands
+INPUT=$(cat)
+COMMAND=$(echo "$INPUT" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    print(data.get('input', {}).get('command', ''))
+except:
+    print('')
+" 2>/dev/null)
+
+if ! echo "$COMMAND" | grep -qiE '(navitia|sncf|plan_journey|search_stations|get_departures|get_arrivals|validate_station|validate_datetime)'; then
+    exit 0
+fi
+
 # Check env var first
 if [ -n "$NAVITIA_API_TOKEN" ]; then
     exit 0

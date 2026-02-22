@@ -24,8 +24,4 @@ Use the `summarize-video` skill to fulfill this request:
 
 ## Requirements
 
-Python 3 must be available. Install the transcript library once:
-
-```bash
-pip install youtube-transcript-api
-```
+**Python 3.12+** and **[uv](https://docs.astral.sh/uv/)** must be available. Dependencies install automatically on first use via `uv run` — no manual setup needed.

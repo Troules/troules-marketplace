@@ -19,6 +19,14 @@ Prose only — no bullet points.>
 
 ---
 
+## Key Takeaways
+
+- <Actionable or memorable takeaway 1>
+- <Actionable or memorable takeaway 2>
+- <Actionable or memorable takeaway 3>
+
+---
+
 ## Table of Contents
 
 | # | Chapter | Timestamp | Link |
@@ -47,14 +55,6 @@ Prose only — no bullet points.>
 <Summary paragraph(s)>
 
 <Include a table only if the chapter has structured/comparative data. Omit if prose is clearer.>
-
----
-
-## Key Takeaways
-
-- <Actionable or memorable takeaway 1>
-- <Actionable or memorable takeaway 2>
-- <Actionable or memorable takeaway 3>
 
 ---
 

@@ -127,10 +127,15 @@ A Claude Code plugin that summarizes YouTube videos into structured markdown doc
 
 ### Prerequisites
 
-**Node.js**: Required to run the YouTube transcript MCP server via `npx`.
-The MCP package (`@kimtaeyoon83/mcp-server-youtube-transcript`) installs automatically on first use.
+**Python 3.12+** and **[uv](https://docs.astral.sh/uv/)** (Python package manager) are required.
 
-No API key needed — transcripts are fetched directly from YouTube.
+Install uv (macOS/Linux):
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+No API key needed — transcripts are fetched directly from YouTube. Dependencies install automatically on first use via `uv run`.
 
 ### Quick Start
 
@@ -172,7 +177,7 @@ The directory is gitignored — results stay local.
 sumYT/
 ├── .claude-plugin/
 │   └── plugin.json                         # Plugin manifest
-├── .mcp.json                               # youtube-transcript MCP server (uvx)
+├── .mcp.json                               # empty — no MCP server used
 ├── commands/
 │   └── sumYT.md                            # /sumYT slash command
 └── skills/
