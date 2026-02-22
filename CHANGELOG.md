@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-02-22 - v2.9.0: sumYT workflow improvements + SNCF hook scoping
+
+### New Features
+- **sumYT**: Migrate from pip to uv — dependencies managed via PEP 723 inline script metadata in `get_transcript.py`; `uv run` installs `youtube-transcript-api` automatically, no manual setup needed
+- **sumYT**: Switch metadata fetch from direct YouTube (fails) to noembed.com oEmbed proxy; video duration now derived from transcript instead of page scrape
+- **sumYT**: Promote video ID extraction to explicit Step 1 in skill workflow
+- **sumYT**: Move Key Takeaways section above Table of Contents in output template
+- **sumYT**: Add `youtube-transcript-api` library reference link in SKILL.md
+- **sumYT**: Update README prerequisites (remove outdated Node.js/MCP mention, add uv install instructions)
+
+### Bug Fixes
+- **sncf-train-schedule**: Scope `PreToolUse: Bash` hooks to SNCF-related commands only — hooks previously fired on every bash call in the session (git, uv, gh, etc.), producing spurious token warnings for unrelated commands
+
+### Files Modified
+- `sumYT/skills/summarize-video/scripts/get_transcript.py` (PEP 723 metadata + uv shebang)
+- `sumYT/skills/summarize-video/SKILL.md` (7-step workflow, noembed proxy, uv prerequisites)
+- `sumYT/skills/summarize-video/references/output-template.md` (Key Takeaways repositioned)
+- `sumYT/commands/sumYT.md` (uv prerequisites)
+- `sncf-train-schedule/hooks/check-token.sh` (SNCF command filter)
+- `sncf-train-schedule/hooks/validate-bash-security.sh` (SNCF command filter)
+- `README.md` (sumYT prerequisites updated)
+- `.gitignore` (added `.serena/`)
+
+---
+
 ## 2026-02-21 - v2.8.0: sumYT — Replace MCP with youtube-transcript-api
 
 ### Changes

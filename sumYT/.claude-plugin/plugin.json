@@ -1,6 +1,6 @@
 {
   "name": "sumYT",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Summarize YouTube videos with timestamped chapters, tables, and markdown output. Supports follow-up Q&A with web search.",
   "author": {
     "name": "Troules"
